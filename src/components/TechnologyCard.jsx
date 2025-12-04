@@ -1,8 +1,16 @@
 import './TechnologyCard.css';
 
-function TechnologyCard({title, description, status}) {
+function TechnologyCard({title, description, status, id, changeStatus}) {
+    const handleClick = () => {
+        if (changeStatus) {
+            changeStatus(id);
+        }
+    };
+
     return (
-        <div className="TechnologyCard">
+        <div className={`TechnologyCard status-${status}`}
+        onClick={handleClick}
+        >
             <div className={`status ${status}`}>
                 Статус: {status === 'completed' ? 'изучено' :
                         status === 'in-progress' ? 'в процессе' :

@@ -46,3 +46,37 @@
     border-radius: 5px;
     transition: width 0.5s ease;
 }
+
+.status-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.status-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.status-count {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.status-count.not-started {
+    color: #ff6b6b;
+}
+
+.status-count.in-progress {
+    color: #ffa500;
+}
+
+.status-count.completed {
+    color: #008000;
+}

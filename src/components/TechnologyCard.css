@@ -1,12 +1,3 @@
-.App {
- max-width: 1200px;
- margin: 0 auto;
- padding: 20px;
- font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
- 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
- sans-serif;
-}
-
 .TechnologyCard {
  display: flex;
  gap: 20px;
@@ -18,6 +9,7 @@
  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
  transition: transform 0.2s, box-shadow 0.2s;
  color:#333;
+ border-left: 5px solid  #ff6b6b;
 }
 
 .TechnologyCard:hover {
@@ -47,4 +39,40 @@
 .status.not-started {
     color: gray;
     font-weight: bold;
+}
+
+.status {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.status.completed {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+.status.in-progress {
+    color: orange;
+    background-color: rgba(255, 165, 0, 0.1);
+}
+
+.status.not-started {
+    color: gray;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.TechnologyCard.status-not-started {
+    border-left-color: #ff6b6b;
+}
+
+.TechnologyCard.status-in-progress {
+    border-left-color: #ffa500;
+}
+
+.TechnologyCard.status-completed {
+    border-left-color: #008000;
 }
