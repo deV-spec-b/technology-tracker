@@ -1,6 +1,7 @@
 import './TechnologyCard.css';
+import TechnologyNotes from './TechnologyNotes';
 
-function TechnologyCard({title, description, status, id, changeStatus}) {
+function TechnologyCard({title, description, status, id, changeStatus, notes,updateNotes }) {
     const handleClick = () => {
         if (changeStatus) {
             changeStatus(id);
@@ -18,6 +19,12 @@ function TechnologyCard({title, description, status, id, changeStatus}) {
             </div>
             <h3>{title}</h3>
             <p>{description}</p>
+
+            <TechnologyNotes
+                notes={notes}
+                techId={id}
+                onNotesChange={updateNotes}
+            /> 
         </div>
     );
 }

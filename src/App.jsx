@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
@@ -7,12 +7,33 @@ import FilterButtons from './components/FilterButtons';
 
 function App() {
     const [technologies, setTechnologies] = useState([
-        { id: 1, title: "React Components", description: "Изучение базовых компонентов", status: "not-started" },
-        { id: 2, title: "JSX Syntax", description: "Освоение синтаксиса JSX", status: "not-started" },
-        { id: 3, title: "State Management", description: "Работа с состоянием компонентов", status: "not-started" },
-        { id: 4, title: "React Hooks", description: "Использование хуков useState, useEffect", status: "not-started" },
-        { id: 5, title: "Props & Context", description: "Передача данных между компонентами", status: "not-started" }
+        { id: 1, title: "React Components", description: "Изучение базовых компонентов", status: "not-started", notes: '' },
+        { id: 2, title: "JSX Syntax", description: "Освоение синтаксиса JSX", status: "not-started", notes: '' },
+        { id: 3, title: "State Management", description: "Работа с состоянием компонентов", status: "not-started", notes: '' },
+        { id: 4, title: "React Hooks", description: "Использование хуков useState, useEffect", status: "not-started", notes: '' },
+        { id: 5, title: "Props & Context", description: "Передача данных между компонентами", status: "not-started", notes: '' }
     ]);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('techTrackerData');
+        if (saved) {
+            setTechnologies(JSON.parse(saved));
+            console.log('Данные загружены из localStorage');
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('techTrackerData', JSON.stringify(technologies));
+        console.log('Данные сохранены в localStorage');
+    }, [technologies]);
+
+    const updateTechnologyNotes = (techId, newNotes) => {
+        setTechnologies(prevTech =>
+            prevTech.map(tech =>
+                tech.id === techId ? { ...tech, notes: newNotes } : tech
+            )
+        );
+    };
 
     const [activeFilter, setActiveFilter] = useState('all');
 
@@ -87,6 +108,8 @@ function App() {
                         description={tech.description}
                         status={tech.status}
                         changeStatus={changeTechnologyStatus}
+                        notes={tech.notes}
+                        updateNotes={updateTechnologyNotes}
                     />
                 ))}
                 {filteredTechnologies.length === 0 && (
