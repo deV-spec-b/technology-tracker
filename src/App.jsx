@@ -1,90 +1,75 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
 import QuickActions from './components/QuickActions';
 import FilterButtons from './components/FilterButtons';
+import useTechnologies from './components/useTechnologies';
+import ProgressBar from './components/ProgressBar';
 
 function App() {
-    const [technologies, setTechnologies] = useState([
-        { id: 1, title: "React Components", description: "Изучение базовых компонентов", status: "not-started", notes: '' },
-        { id: 2, title: "JSX Syntax", description: "Освоение синтаксиса JSX", status: "not-started", notes: '' },
-        { id: 3, title: "State Management", description: "Работа с состоянием компонентов", status: "not-started", notes: '' },
-        { id: 4, title: "React Hooks", description: "Использование хуков useState, useEffect", status: "not-started", notes: '' },
-        { id: 5, title: "Props & Context", description: "Передача данных между компонентами", status: "not-started", notes: '' }
-    ]);
-
-    useEffect(() => {
-        const saved = localStorage.getItem('techTrackerData');
-        if (saved) {
-            setTechnologies(JSON.parse(saved));
-            console.log('Данные загружены из localStorage');
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('techTrackerData', JSON.stringify(technologies));
-        console.log('Данные сохранены в localStorage');
-    }, [technologies]);
-
-    const updateTechnologyNotes = (techId, newNotes) => {
-        setTechnologies(prevTech =>
-            prevTech.map(tech =>
-                tech.id === techId ? { ...tech, notes: newNotes } : tech
-            )
-        );
-    };
-
+    const {technologies, updateStatus, updateNotes, progress, updateMultipleStatuses} = useTechnologies();
+    const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('all');
 
     const changeTechnologyStatus = (id) => {
-        setTechnologies(prevTech => prevTech.map(tech => {
-            if (tech.id === id) {
-                let nextStatus;
-                if (tech.status === 'not-started') {
-                    nextStatus = 'in-progress';
-                } else if (tech.status === 'in-progress') {
-                    nextStatus = 'completed';
-                } else {
-                    nextStatus = 'not-started';
-                }
-                return { ...tech, status: nextStatus };
-            }
-            return tech;
-        }));
+        const tech = technologies.find(t => t.id === id);
+        if (!tech) return;
+        let nextStatus;
+        if (tech.status === 'not-started') {
+            nextStatus = 'in-progress';
+        } else if (tech.status === 'in-progress') {
+            nextStatus = 'completed';
+        } else {
+            nextStatus = 'not-started';
+        }
+        updateStatus(id, nextStatus);
     };
 
     const markAllCompleted = () => {
-        setTechnologies(prevTech => 
-            prevTech.map(tech => ({ ...tech, status: 'completed' }))
-        );
+        const allIds = technologies.map(tech => tech.id);
+        updateMultipleStatuses(allIds, 'completed');
     };
 
     const resetAllStatuses = () => {
-        setTechnologies(prevTech => 
-            prevTech.map(tech => ({ ...tech, status: 'not-started' }))
-        );
+        const allIds = technologies.map(tech => tech.id);
+        updateMultipleStatuses(allIds, 'not-started');
     };
 
     const selectRandomTechnology = () => {
         const notStartedTech = technologies.filter(tech => tech.status === 'not-started');
         if (notStartedTech.length > 0) {
             const randomTech = notStartedTech[Math.floor(Math.random() * notStartedTech.length)];
-            changeTechnologyStatus(randomTech.id);
+            updateStatus(randomTech.id, 'in-progress');
             alert(`🎯 Следующая технология для изучения: "${randomTech.title}"`);
         } else {
             alert('🎉 Все технологии уже начаты или изучены!');
         }
     };
 
-    const filteredTechnologies = technologies.filter(tech => {
+    const filteredByStatus = technologies.filter(tech => {
         if (activeFilter === 'all') return true;
         return tech.status === activeFilter;
     });
 
+    const filteredTechnologies = filteredByStatus.filter(tech =>
+        tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        tech.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div className="App">
             <h1>🚀 Трекер изучения технологий</h1>
+
+            <div className='main-progress'>
+                <ProgressBar
+                    progress={progress}
+                    label='Общий прогресс изучения'
+                    color='#2196F3'
+                    animated={true}
+                    height={25}
+                />
+            </div>
             
             <ProgressHeader technologies={technologies} />
             
@@ -92,6 +77,7 @@ function App() {
                 onMarkAllCompleted={markAllCompleted}
                 onResetAll={resetAllStatuses}
                 onRandomSelect={selectRandomTechnology}
+                technologies={technologies}
             />
             
             <FilterButtons 
@@ -99,6 +85,16 @@ function App() {
                 setActiveFilter={setActiveFilter}
             />
             
+            <div className="search-box">
+                <input
+                    type="text"
+                    placeholder="Поиск технологий..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <span>Найдено: {filteredTechnologies.length}</span>
+            </div>
+
             <div className="technology-list">
                 {filteredTechnologies.map(tech => (
                     <TechnologyCard
@@ -109,7 +105,7 @@ function App() {
                         status={tech.status}
                         changeStatus={changeTechnologyStatus}
                         notes={tech.notes}
-                        updateNotes={updateTechnologyNotes}
+                        updateNotes={updateNotes}
                     />
                 ))}
                 {filteredTechnologies.length === 0 && (

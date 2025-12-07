@@ -1,0 +1,23 @@
+.progress-bar-container {
+    margin: 15px 0;
+}
+
+.progress-bar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.progress-label {
+    font-weight: 500;
+    color: white;
+}
+
+.progress-percentage {
+    font-weight: bold;
+    color: white;
+}
+
+.progress-bar-inner.animated {
+    transition: width 0.5s ease-in-out;
+}
