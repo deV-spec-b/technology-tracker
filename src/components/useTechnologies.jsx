@@ -46,6 +46,11 @@ const initialTechnologies = [
 function useTechnologies() {
     const [technologies, setTechnologies] = useLocalStorage('technologies', initialTechnologies);
 
+    const restoreDefaultData = () => {
+        setTechnologies(initialTechnologies);
+        return initialTechnologies;
+    };
+
     const updateStatus = (techId, newStatus) => {
         setTechnologies(prev =>
             prev.map(tech =>
@@ -81,6 +86,7 @@ function useTechnologies() {
         updateStatus,
         updateNotes,
         updateMultipleStatuses,
+        restoreDefaultData,
         progress: calculateProgress()
     };
 }
