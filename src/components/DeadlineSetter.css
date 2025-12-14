@@ -1,0 +1,346 @@
+.deadline-setter {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.deadline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.deadline-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.6rem;
+}
+
+.header-stats {
+    background: #e8f4fd;
+    color: #3498db;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.selection-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.btn-select-all,
+.btn-reset {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-select-all {
+    background: #3498db;
+    color: white;
+}
+
+.btn-select-all:hover {
+    background: #2980b9;
+}
+
+.btn-reset {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-reset:hover {
+    background: #7f8c8d;
+}
+
+.tech-deadlines-list {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.tech-deadline-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.tech-deadline-item:hover {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.tech-deadline-item.selected {
+    background: #f0f8ff;
+    border-color: #3498db;
+    border-left: 4px solid #3498db;
+}
+
+.tech-selection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.tech-selection input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.tech-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+.tech-category {
+    background: #e8f4fd;
+    color: #3498db;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.status {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-not-started {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-in-progress {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.deadline-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 250px;
+}
+
+.deadline-label {
+    font-size: 0.9rem;
+    color: #495057;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.deadline-input {
+    padding: 10px 12px;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.deadline-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.deadline-input.error {
+    border-color: #dc3545;
+    background: #fff8f8;
+}
+
+.deadline-input:disabled {
+    background: #f8f9fa;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.current-deadline {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    padding: 3px 0;
+}
+
+.validation-info {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+.validation-errors {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
+    font-weight: 500;
+}
+
+.no-selection-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ffeaa7;
+    font-weight: 500;
+}
+
+.deadline-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-save-deadlines {
+    flex: 2;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save-deadlines:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-save-deadlines:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-cancel {
+    flex: 1;
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+.deadline-hints {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f1f8ff;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.deadline-hints h3 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.deadline-hints ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #495057;
+}
+
+.deadline-hints li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .deadline-setter {
+        padding: 15px;
+    }
+    
+    .deadline-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .tech-deadline-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .tech-selection {
+        width: 100%;
+    }
+    
+    .deadline-input-container {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .deadline-actions {
+        flex-direction: column;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
